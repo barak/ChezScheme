@@ -1,0 +1,96 @@
+#!/usr/bin/make -f
+include /usr/share/dpkg/architecture.mk
+include /usr/share/dpkg/pkg-info.mk
+
+export CHEZ_VERSION = $(shell echo '$(DEB_VERSION_UPSTREAM)' | sed -e 's/[+~].*$$//')
+export DH_VERBOSE = 1
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+DOPACKAGES = $(shell dh_listpackages)
+
+# Translate the host architecture to terms ./configure understands.
+ifeq ($(DEB_HOST_GNU_TYPE), x86_64-linux-gnu)
+    export MACHINE_TYPE = ta6le
+else ifeq ($(DEB_HOST_GNU_TYPE), i386-linux-gnu)
+    export MACHINE_TYPE = ti3le
+else
+    $(error Can not yet build for $(DEB_HOST_GNU_TYPE))
+endif
+ifeq ($(origin CC),default)
+CC := $(DEB_HOST_GNU_TYPE)-gcc
+endif
+
+LIBDIR=usr/lib/csv$(CHEZ_VERSION)/$(MACHINE_TYPE)
+
+# Chez Scheme statically links with r6rs-nanopass-dev.
+NANOPASS_SRC = $(shell dpkg-query -W -f='$${source:Package} (= $${source:Version})\n' r6rs-nanopass-dev)
+SUBSTVARS = -Vmisc:Built-Using="$(NANOPASS_SRC)"
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	CC=$(CC) ./configure --workarea=build -m=$(MACHINE_TYPE) --threads --installprefix=/usr --temproot=$(shell pwd)/debian/tmp
+	cp -a release_notes/ build/
+	cp -a csug/ build/
+	(echo "\def\INSERTREVISIONMONTHSPACEYEAR{}"; cat csug/copyright.stex) > \
+	    build/csug/copyright.stex
+
+override_dh_auto_test-arch:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	make -C build test
+endif
+
+override_dh_auto_build:
+	make -C build
+ifneq (,$(filter chezscheme$(CHEZ_VERSION)-doc,$(DOPACKAGES)))
+	make -C build/release_notes Scheme=scheme STEXLIB=/usr/share/stex
+	make -C build/csug Scheme=scheme STEXLIB=/usr/share/stex
+endif
+
+override_dh_auto_install:
+	make install
+	sed -e 's,^\\fI\(Chez Scheme\)\\fP,chezscheme$(CHEZ_VERSION) \- Chez Scheme,' \
+	    -e 's,^\\fI\(Petite Chez Scheme\)\\fP,petite$(CHEZ_VERSION) \- Petite Chez Scheme,' \
+	    build/scheme.1 > build/chezscheme$(CHEZ_VERSION).1
+ifneq (,$(filter chezscheme$(CHEZ_VERSION)-doc,$(DOPACKAGES)))
+	make -C build/release_notes Scheme=scheme STEXLIB=/usr/share/stex INSTALL=../installsh \
+	    installdir=$(shell pwd)/debian/tmp/usr/share/doc/chezscheme-doc/  \
+	    install
+	make -C build/csug Scheme=scheme STEXLIB=/usr/share/stex INSTALL=../installsh \
+	    installdir=$(shell pwd)/debian/tmp/usr/share/doc/chezscheme-doc/html/  \
+	    install
+endif
+
+override_dh_link:
+	dh_link $(LIBDIR)/petite.boot $(LIBDIR)/petite$(CHEZ_VERSION).boot \
+	        $(LIBDIR)/scheme.boot $(LIBDIR)/chezscheme$(CHEZ_VERSION).boot \
+	        $(LIBDIR)/scheme.boot $(LIBDIR)/scheme-script.boot \
+	        $(LIBDIR)/scheme.boot $(LIBDIR)/scheme-script$(CHEZ_VERSION).boot \
+	        /usr/share/man/man1/chezscheme$(CHEZ_VERSION).1.gz \
+	        /usr/share/man/man1/petite$(CHEZ_VERSION).1.gz \
+	        /usr/share/man/man1/chezscheme$(CHEZ_VERSION).1.gz \
+	        /usr/share/man/man1/scheme-script$(CHEZ_VERSION).1.gz
+	dh_link -pchezscheme \
+	       /usr/bin/chezscheme$(CHEZ_VERSION) usr/bin/scheme \
+	       /usr/bin/chezscheme$(CHEZ_VERSION) usr/bin/petite \
+	       /usr/share/man/man1/chezscheme$(CHEZ_VERSION).1.gz \
+	       /usr/share/man/man1/petite.1.gz \
+	       /usr/share/man/man1/chezscheme$(CHEZ_VERSION).1.gz \
+	       /usr/share/man/man1/scheme.1.gz
+
+override_dh_auto_clean:
+	rm -f Makefile
+	dh_auto_clean
+
+override_dh_gencontrol:
+	dh_gencontrol -- $(SUBSTVARS)
+
+override_dh_installdocs:
+	dh_installdocs -A NOTICE
+
+override_dh_installchangelogs:
+	dh_installchangelogs LOG
+
+override_dh_installman:
+	dh_installman build/chezscheme$(CHEZ_VERSION).1

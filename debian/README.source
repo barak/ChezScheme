@@ -1,0 +1,24 @@
+Chez Scheme for Debian
+----------------------
+
+Upstream's corporate logo was removed due to non-DFSG conditions.
+Additionally the file examples/rsa.ss was removed since there was no
+explicit license.
+
+Building the first time is not straightforward due to semi-circular
+dependencies. Build in this order:
+
+* Build and install nanopass-framework-scheme with
+  DEB_BUILD_OPTIONS=nocheck DEB_BUILD_PROFILES=nocheck.
+
+* Build chezscheme with DEB_BUILD_OPTIONS="nodoc nocheck"
+  DEB_BUILD_PROFILES="nodoc nocheck" and install the built packages.
+
+* Build and install stex.
+
+* Build chezscheme again to build everything, including documentation.
+
+Once stex and nanopass are in the archive then it is from that point
+possible to build as usual.
+
+ -- Göran Weinholt <goran@weinholt.se>, Mon, 11 Dec 2017 23:27:37 +0100

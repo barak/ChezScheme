@@ -1,0 +1,3 @@
+build/csug/csug.pdf
+debian/tmp/usr/share/doc/chezscheme-doc/html/
+debian/tmp/usr/share/doc/chezscheme-doc/release_notes.*

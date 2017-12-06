@@ -1,0 +1,254 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Chez Scheme
+Source: https://github.com/cisco/ChezScheme/
+
+Files: *
+Copyright: 1984-2017, Cisco Systems, Inc.
+License: Apache-2.0
+
+License: Apache-2.0
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ .
+ http://www.apache.org/licenses/LICENSE-2.0
+ .
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ .
+ On Debian systems, the complete text of the Apache License,
+ Version 2.0 can be found in '/usr/share/common-licenses/Apache-2.0'.
+
+Files:     NOTICE
+Copyright: 1984-2017 Cisco Systems, Inc.
+License:   NOTICE
+ This product includes code developed by Cisco Systems, Inc.
+ .
+ This product also includes separately copyrighted:
+ .
+ * Unicode data files from the Unicode Consortium
+ .
+ * Unicode data-file processing code developed by Abdulaziz Ghuloum and
+ R. Kent Dybvig
+ .
+ * sorting code developed by Olin Shivers
+ .
+ * example programs, an html formatting module, and documentation
+ support files developed by R. Kent Dybvig
+ .
+ * test code and other code used for testing developed by
+ William D Clinger, by Dirk Lutzebaeck, and by Oscar Waddell and
+ R. Kent Dybvig.
+ .
+ * code derived from C. David Boyer's command-line editor
+ .
+ Builds of this product incorporate separately copyrighted code from:
+ .
+ * the Nanopass Infrastructure, developed by Dipanwita Sarkar,
+ Andrew W. Keep, R. Kent Dybvig, and Oscar Waddell
+ .
+ * the Zlib compression library, developed by Jean-loup Gailly and
+ Mark Adler
+
+Files:     csug/csug8.cls
+           csug/csug8.hcls
+           csug/tspl4-prep.stex
+           examples/def.ss
+           examples/edit.ss
+           examples/fft.ss
+           examples/foreign.ss
+           examples/freq.ss
+           examples/interpret.ss
+           examples/m4.ss
+           examples/macro.ss
+           examples/matrix.ss
+           examples/object.ss
+           examples/setof.ss
+           examples/unify.ss
+Copyright: 1987-1996, R. Kent Dybvig
+License:   Expat
+
+License: Expat
+ Permission is hereby granted, free of charge, to any person obtaining a
+ copy of this software and associated documentation files (the "Software"),
+ to deal in the Software without restriction, including without limitation
+ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ and/or sell copies of the Software, and to permit persons to whom the
+ Software is furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+ THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ DEALINGS IN THE SOFTWARE.
+
+Files:     mats/oop.ss
+Copyright: 2002 Oscar Waddell and R. Kent Dybvig
+License:   Expat
+
+Files:     mats/5_4.ms
+           mats/bytevector.ms
+           mats/io.ms
+Copyright: 1984-2017 Cisco Systems, Inc.
+           2006-2007 William D Clinger.
+License:   Apache-2.0 and CLINGER
+
+License: CLINGER
+ This is part a test suite not included in the binary package.
+ .
+ ; Permission to copy this software, in whole or in part, to use this
+ ; software for any lawful purpose, and to redistribute this software
+ ; is granted subject to the restriction that all copies made of this
+ ; software must include this copyright and permission notice in full.
+ ;
+ ; I also request that you send me a copy of any improvements that you
+ ; make to this software so that they may be incorporated within it to
+ ; the benefit of the Scheme community.
+
+Files:     mats/format.ms
+Copyright: 1984-2017 Cisco Systems, Inc.
+License:   Apache-2.0 and LUTZEBAECK
+
+License: LUTZEBAECK
+ This is part a test suite not included in the binary package.
+ .
+ ;; "formatst.scm" SLIB FORMAT Version 3.0 conformance test
+ ; Written by Dirk Lutzebaeck (lutzeb@cs.tu-berlin.de)
+ .
+ ; This code is in the public domain.
+
+Files:     s/5_4.ss
+Copyright: 1984-2017, Cisco Systems, Inc.
+           2006-2008, Abdulaziz Ghuloum
+           2008, R. Kent Dybvig
+License:   Apache-2.0 and Expat
+
+Files:     s/5_6.ss
+Copyright: 1984-2017, Cisco Systems, Inc.
+           1998, Olin Shivers
+License:   Apache-2.0 and SHIVERS
+
+License: SHIVERS
+ ;; dovsort! is a modified version of Olin Shiver's code for opportunistic
+ ;; vector merge sort, based on a version found in the MzScheme Version 360
+ ;; source code, which contains the following copyright notice.
+ .
+ ;; This code is
+ ;;     Copyright (c) 1998 by Olin Shivers.
+ ;; The terms are: You may do as you please with this code, as long as
+ ;; you do not delete this notice or hold me responsible for any outcome
+ ;; related to its use.
+ ;;
+ ;; Blah blah blah. Don't you think source files should contain more lines
+ ;; of code than copyright notice?
+
+Files:     s/pdhtml.ss
+Copyright: 2005, R. Kent Dybvig
+           1984-2017 Cisco Systems, Inc.
+License:   Apache-2.0 and Expat
+
+Files:     s/expeditor.ss
+Copyright: 2007, R. Kent Dybvig
+           1989-1994 C. David Boyer
+License:   Apache-2.0 and BOYER
+
+License: BOYER
+ ;;; This code is based on David Boyer's command-line editor, which has the
+ ;;; following copyright:
+ ;;;
+ ;;;   Copyright (c) 1989, 1993, 1994 C. David Boyer
+ ;;;
+ ;;;   Permission to copy this software, in whole or in part, to use this
+ ;;;   software for any lawful purpose, and to redistribute this software is
+ ;;;   granted subject to the restriction that all copies made of this software
+ ;;;   must include this copyright notice in full.
+ ;;;
+ ;;; The present implementation retains some of the basic design but little
+ ;;; of the original code.
+
+Files:     unicode/*
+Copyright: 2006-2008, Abdulaziz Ghuloum
+           2008, R. Kent Dybvig
+License:   Expat
+
+Files:     unicode/UNIDATA/*
+Copyright: 1991-2014 Unicode, Inc.
+License:   UNICODE
+ These files are downloaded from unicode.org. Newer versions are
+ available in the Debian package unicode-data. The 2014 version
+ of the license was obtained from this URL:
+ https://web.archive.org/web/20140703024234/http://www.unicode.org/copyright.html
+ .
+   EXHIBIT 1
+   UNICODE, INC. LICENSE AGREEMENT - DATA FILES AND SOFTWARE
+ .
+   Unicode Data Files include all data files under the directories
+   http://www.unicode.org/Public/, http://www.unicode.org/reports/, and
+   http://www.unicode.org/cldr/data/. Unicode Data Files do not include
+   PDF online code charts under the directory
+   http://www.unicode.org/Public/. Software includes any source code
+   published in the Unicode Standard or under the directories
+   http://www.unicode.org/Public/, http://www.unicode.org/reports/, and
+   http://www.unicode.org/cldr/data/.
+ .
+   NOTICE TO USER: Carefully read the following legal agreement. BY
+   DOWNLOADING, INSTALLING, COPYING OR OTHERWISE USING UNICODE INC.'S
+   DATA FILES ("DATA FILES"), AND/OR SOFTWARE ("SOFTWARE"), YOU
+   UNEQUIVOCALLY ACCEPT, AND AGREE TO BE BOUND BY, ALL OF THE TERMS AND
+   CONDITIONS OF THIS AGREEMENT. IF YOU DO NOT AGREE, DO NOT DOWNLOAD,
+   INSTALL, COPY, DISTRIBUTE OR USE THE DATA FILES OR SOFTWARE.
+ .
+   COPYRIGHT AND PERMISSION NOTICE
+ .
+   Copyright © 1991-2014 Unicode, Inc. All rights reserved.
+   Distributed under the Terms of Use in
+   http://www.unicode.org/copyright.html.
+ .
+   Permission is hereby granted, free of charge, to any person obtaining
+   a copy of the Unicode data files and any associated documentation
+   (the "Data Files") or Unicode software and any associated documentation
+   (the "Software") to deal in the Data Files or Software
+   without restriction, including without limitation the rights to use,
+   copy, modify, merge, publish, distribute, and/or sell copies of
+   the Data Files or Software, and to permit persons to whom the Data Files
+   or Software are furnished to do so, provided that
+   (a) this copyright and permission notice appear with all copies
+   of the Data Files or Software,
+   (b) this copyright and permission notice appear in associated
+   documentation, and
+   (c) there is clear notice in each modified Data File or in the Software
+   as well as in the documentation associated with the Data File(s) or
+   Software that the data or software has been modified.
+ .
+   THE DATA FILES AND SOFTWARE ARE PROVIDED "AS IS", WITHOUT WARRANTY OF
+   ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+   WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   NONINFRINGEMENT OF THIRD PARTY RIGHTS.
+   IN NO EVENT SHALL THE COPYRIGHT HOLDER OR HOLDERS INCLUDED IN THIS
+   NOTICE BE LIABLE FOR ANY CLAIM, OR ANY SPECIAL INDIRECT OR CONSEQUENTIAL
+   DAMAGES, OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE,
+   DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+   TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+   PERFORMANCE OF THE DATA FILES OR SOFTWARE.
+ .
+   Except as contained in this notice, the name of a copyright holder
+   shall not be used in advertising or otherwise to promote the sale,
+   use or other dealings in these Data Files or Software without prior
+   written authorization of the copyright holder.
+
+Files: debian/*
+Copyright: 2017 Göran Weinholt <goran@weinholt.se>
+License: GPL-2+
+
+License: GPL-2+
+ Licensed under the GNU GPL version 2 or, at you option, any later version.
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in /usr/share/common-licenses/GPL-2

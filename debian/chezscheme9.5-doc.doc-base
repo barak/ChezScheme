@@ -1,0 +1,15 @@
+Document: csug9.5
+Title: Chez Scheme User Guide 9.5
+Author: R. Kent Dybvig
+Abstract: This manual shows how to use Chez Scheme, a reliable, high
+ performance Scheme compiler. It contains instructions for using the
+ compiler and the interpreter, shows the extensions made to R6RS
+ Scheme and includes a reference for all built-in libraries.
+Section: Programming/Scheme
+
+Format: PDF
+Files: /usr/share/doc/chezscheme9.5-doc/csug.pdf.gz
+
+Format: HTML
+Index: /usr/share/doc/chezscheme9.5-doc/html/index.html
+Files: /usr/share/doc/chezscheme9.5-doc/html/*.html

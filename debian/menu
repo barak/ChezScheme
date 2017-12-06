@@ -1,0 +1,2 @@
+?package(chezscheme9.5):needs="text" section="Applications/Programming"\
+  title="Chez Scheme" command="/usr/bin/chezscheme9.5"

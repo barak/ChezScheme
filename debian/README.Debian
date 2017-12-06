@@ -1,0 +1,33 @@
+Chez Scheme for Debian
+----------------------
+
+The full documentation is in the -doc package.
+
+Chez Scheme consists of: the executables (scheme-script, scheme, and
+petite), the kernel library (kernel.o), and the boot files
+(petite.boot and scheme.boot). The executable sets up the process and
+instructs the kernel to load and start boot images. Chez Scheme has
+good integration with C, so there are also C header files.
+
+Users and packagers may compile Scheme code to produce object files.
+The format of these files is specific to the _compiler version_ and
+machine type (e.g. ta6le = threaded Linux amd64) they were produced by
+and can not be loaded by other runtimes. If Scheme programs are going
+to be packaged, then previous compiler versions need to be kept around
+as long as any package depends on them. This is handled by
+chezschemeX.Y.
+
+If you are packaging a Scheme program for Debian, then remember to
+change the shebang of compiled programs to "#!/usr/bin/chezschemeX.Y
+--program", where X.Y is the version used to compile the package. Use
+dpkg-query to find the version, so that the package is bin-NMU-able.
+
+Users may link with the Chez Scheme kernel library to create custom
+executables. Traditionally users will statically link in the kernel.
+This use case is covered by chezschemeX.Y-dev.
+
+Traditionally upstream has distributed four different builds from
+these combinations: with/without compiler, with/without threading. The
+Debian package comes with the compiler and with threading.
+
+ -- Göran Weinholt <goran@weinholt.se>, Sun, 10 Dec 2017 23:06:48 +0100

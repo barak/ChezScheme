@@ -1,0 +1,5 @@
+chezscheme (9.5+dfsg-1) unstable; urgency=low
+
+  * Initial release (closes: #823425).
+
+ -- Göran Weinholt <goran@weinholt.se>  Tue, 12 Dec 2017 00:49:31 +0100

@@ -1,0 +1,3 @@
+#!/usr/bin/dh-exec
+build/boot/${MACHINE_TYPE}/kernel.o => usr/lib/${DEB_HOST_MULTIARCH}/csv${CHEZ_VERSION}/${MACHINE_TYPE}/
+usr/lib/csv${CHEZ_VERSION}/${MACHINE_TYPE}/scheme.h => usr/include/${DEB_HOST_MULTIARCH}/csv${CHEZ_VERSION}/${MACHINE_TYPE}/

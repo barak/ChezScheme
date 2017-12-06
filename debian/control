@@ -1,0 +1,68 @@
+Source: chezscheme
+Section: lisp
+Priority: optional
+Maintainer: Göran Weinholt <goran@weinholt.se>
+Build-Depends: debhelper (>= 10), dh-exec
+Build-Depends-Arch: zlib1g-dev | libz-dev,
+       libncurses5-dev | libncurses-dev | ncurses-dev,
+       libx11-dev,
+       r6rs-nanopass-dev
+Build-Depends-Indep: stex <!nodoc>
+Standards-Version: 4.1.2
+Homepage: https://cisco.github.io/ChezScheme/
+
+Package: chezscheme9.5
+Architecture: i386 amd64
+Multi-Arch: foreign
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Built-Using: ${misc:Built-Using}
+Description: Reliable, high performance Scheme compiler (version 9.5)
+ Chez Scheme is both a programming language and an implementation of
+ that language, with supporting tools and documentation.
+ .
+ This package contains the executables and the boot files.
+
+Package: chezscheme9.5-dev
+Section: devel
+Architecture: i386 amd64
+Multi-Arch: same
+Depends: chezscheme9.5 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: Reliable, high performance Scheme compiler (C development files)
+ Chez Scheme is both a programming language and an implementation of
+ that language, with supporting tools and documentation.
+ .
+ This package contains the runtime kernel and C headers.
+
+Package: chezscheme9.5-doc
+Section: doc
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Build-Profiles: <!nodoc>
+Description: Reliable, high performance Scheme compiler (documentation)
+ Chez Scheme is both a programming language and an implementation of
+ that language, with supporting tools and documentation.
+ .
+ This package contains the documentation.
+
+Package: chezscheme
+Architecture: all
+Multi-Arch: foreign
+Depends: chezscheme9.5, ${misc:Depends}
+Suggests: chezscheme9.5-doc
+Conflicts: ikarus (<< 0.0.3+bzr.2010.01.26-5)
+Description: Reliable, high performance Scheme compiler
+ Chez Scheme is both a programming language and an implementation of
+ that language, with supporting tools and documentation.
+ .
+ As a superset of the language described in the Revised^6 Report on
+ the Algorithmic Language Scheme (R6RS), Chez Scheme supports all
+ standard features of Scheme, including first-class procedures, proper
+ treatment of tail calls, continuations, user-defined records,
+ libraries, exceptions, and hygienic macro expansion.
+ .
+ Chez Scheme also includes extensive support for interfacing with C
+ and other languages, support for multiple threads possibly running on
+ multiple cores, non-blocking I/O, and many other features.
+ .
+ This package depends on the latest Chez Scheme version.
