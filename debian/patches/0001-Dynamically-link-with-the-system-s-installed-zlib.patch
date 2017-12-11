@@ -1,0 +1,78 @@
+From: =?utf-8?q?G=C3=B6ran_Weinholt?= <goran@weinholt.se>
+Date: Sun, 10 Dec 2017 19:16:01 +0100
+Subject: Dynamically link with the system's installed zlib
+
+---
+ c/Mf-base  | 6 ------
+ c/Mf-ta6le | 8 ++++----
+ c/Mf-ti3le | 6 +++---
+ 3 files changed, 7 insertions(+), 13 deletions(-)
+
+diff --git a/c/Mf-base b/c/Mf-base
+index cc23047..4c101a1 100644
+--- a/c/Mf-base
++++ b/c/Mf-base
+@@ -54,14 +54,8 @@ scheme.o main.o: config.h
+ ${kernelobj}: system.h types.h version.h externs.h globals.h segment.h thread.h sort.h
+ ${kernelobj}: ${Include}/equates.h ${Include}/scheme.h
+ ${mainobj}: ${Include}/scheme.h
+-${kernelobj}: ../zlib/zconf.h ../zlib/zlib.h
+ gc-ocd.o gc-oce.o: gc.c
+ 
+-../zlib/zlib.h ../zlib/zconf.h: ../zlib/configure.log
+-
+-../zlib/libz.a: ../zlib/configure.log
+-	(cd ../zlib; ${MAKE})
+-
+ clean:
+ 	rm -f *.$o ${mdclean}
+ 	rm -f Make.out
+diff --git a/c/Mf-ta6le b/c/Mf-ta6le
+index 206afc5..1fff8d9 100644
+--- a/c/Mf-ta6le
++++ b/c/Mf-ta6le
+@@ -16,7 +16,7 @@
+ m = ta6le
+ Cpu = X86_64
+ 
+-mdclib = -lm -ldl -lncurses -lpthread -lrt
++mdclib = -lm -ldl -lncurses -lpthread -lrt -lz
+ C = ${CC} ${CPPFLAGS} -m64 -msse2 -Wpointer-arith -Wall -Wextra -Werror -Wno-implicit-fallthrough -O2 -D_REENTRANT -pthread ${CFLAGS}
+ o = o
+ mdsrc = i3le.c
+@@ -26,12 +26,12 @@ mdobj = i3le.o
+ .SUFFIXES: .c .o
+ 
+ .c.o:
+-	$C -c -D${Cpu} -I${Include} -I../zlib $*.c
++	$C -c -D${Cpu} -I${Include} $*.c
+ 
+ include Mf-base
+ 
+-${Kernel}: ${kernelobj} ../zlib/libz.a
+-	ld -melf_x86_64 -r -X -o ${Kernel} ${kernelobj} ../zlib/libz.a
++${Kernel}: ${kernelobj}
++	ld -melf_x86_64 -r -X -o ${Kernel} ${kernelobj}
+ 
+ ${Scheme}: ${Kernel} ${Main}
+ 	$C -rdynamic -o ${Scheme} ${Kernel} ${Main} ${mdclib} ${LDFLAGS}
+diff --git a/c/Mf-ti3le b/c/Mf-ti3le
+index 3883602..48b4fad 100644
+--- a/c/Mf-ti3le
++++ b/c/Mf-ti3le
+@@ -26,12 +26,12 @@ mdobj = i3le.o
+ .SUFFIXES: .c .o
+ 
+ .c.o:
+-	$C -c -D${Cpu} -I${Include} -I../zlib $*.c
++	$C -c -D${Cpu} -I${Include} $*.c
+ 
+ include Mf-base
+ 
+-${Kernel}: ${kernelobj} ../zlib/libz.a
+-	ld -melf_i386 -r -X -o ${Kernel} ${kernelobj} ../zlib/libz.a
++${Kernel}: ${kernelobj}
++	ld -melf_i386 -r -X -o ${Kernel} ${kernelobj} -L/usr/lib/${DEB_HOST_MULTIARCH}/ -lz
+ 
+ ${Scheme}: ${Kernel} ${Main}
+ 	$C -rdynamic -o ${Scheme} ${Kernel} ${Main} ${mdclib} ${LDFLAGS}

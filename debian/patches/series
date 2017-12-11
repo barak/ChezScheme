@@ -1,0 +1,4 @@
+0001-Dynamically-link-with-the-system-s-installed-zlib.patch
+0003-Support-using-the-system-s-installed-stex-and-nanopa.patch
+0004-Remove-the-need-for-files-removed-in-dfsg-cleaning.patch
+0002-configure-Do-not-download-dependencies.patch

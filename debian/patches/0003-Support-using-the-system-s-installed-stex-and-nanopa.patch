@@ -1,0 +1,32 @@
+From: =?utf-8?q?G=C3=B6ran_Weinholt?= <goran@weinholt.se>
+Date: Sun, 10 Dec 2017 19:18:50 +0100
+Subject: Support using the nanopass installed on the system
+
+---
+ s/Mf-base | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/s/Mf-base b/s/Mf-base
+index 200d444..2ee7a68 100644
+--- a/s/Mf-base
++++ b/s/Mf-base
+@@ -358,7 +358,7 @@ mkheader.so: mkheader.ss cmacros.so primvars.so env.so
+              '(compile-file "$*.ss" "$*.so")'\
+              | ${Scheme} -q cmacros.so priminfo.so primvars.so env.so
+ 
+-nanopass.so: $(shell echo ../nanopass/nanopass/*) ../nanopass/nanopass.ss
++nanopass.so: $(shell echo /usr/share/r6rs/nanopass/*) /usr/share/r6rs/nanopass.ss
+ 	echo '(reset-handler abort)'\
+              '(base-exception-handler (lambda (c) (fresh-line) (display-condition c) (newline) (reset)))'\
+              '(keyboard-interrupt-handler (lambda () (display "interrupted---aborting\n") (reset)))'\
+@@ -368,8 +368,8 @@ nanopass.so: $(shell echo ../nanopass/nanopass/*) ../nanopass/nanopass.ss
+              '(collect-trip-bytes (expt 2 24))'\
+              '(collect-request-handler (lambda () (collect 0 1)))'\
+              '(collect 1 2)'\
+-             '(compile-library "../nanopass/nanopass.ss" "nanopass.so")'\
+-             | ${Scheme} -q --libdirs "../nanopass${dirsep}${dirsep}." --compile-imported-libraries
++             '(compile-library "/usr/share/r6rs/nanopass.ss" "nanopass.so")'\
++             | ${Scheme} -q --libdirs "/usr/share/r6rs${dirsep}${dirsep}." --compile-imported-libraries
+ 
+ rootsrc = $(shell cd ../../s; echo *)
+ ${rootsrc}:

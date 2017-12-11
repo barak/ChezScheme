@@ -1,0 +1,61 @@
+From: =?utf-8?q?G=C3=B6ran_Weinholt?= <goran@weinholt.se>
+Date: Sun, 10 Dec 2017 19:20:27 +0100
+Subject: Remove the need for files removed in dfsg cleaning
+
+---
+ csug/Makefile     | 2 +-
+ csug/csug.stex    | 1 -
+ csug/title.stex   | 1 -
+ examples/Makefile | 2 +-
+ 4 files changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/csug/Makefile b/csug/Makefile
+index a078abc..952ec14 100644
+--- a/csug/Makefile
++++ b/csug/Makefile
+@@ -80,7 +80,7 @@ $(x).presecondrun: $(x).firstrun
+ 	cat tspl.idx >> $x.idx
+ 	touch $(x).presecondrun
+ 
+-$(x).thirdrun: $(x).prethirdrun canned/cisco-logo.png
++$(x).thirdrun: $(x).prethirdrun
+ $(x).prethirdrun: $(x).secondrun
+ 	cat tspl.aux >> $x.aux
+ 	cat tspl.rfm >> $x.rfm
+diff --git a/csug/csug.stex b/csug/csug.stex
+index fe791e0..9cdd3aa 100644
+--- a/csug/csug.stex
++++ b/csug/csug.stex
+@@ -84,7 +84,6 @@ Revised \INSERTREVISIONMONTHSPACEYEAR for Chez Scheme Version 9.5<br>
+ 
+ \ifhtml
+ \raw{\raw{<table><tr>
+-<td><img src="canned/cisco-logo.png"><br></td>
+ <td style="padding-left: 2em"><span class=title>Chez Scheme Version 9<br>User's Guide</span></td>
+ </tr></table>}}
+ \fi
+diff --git a/csug/title.stex b/csug/title.stex
+index bc50feb..b6ad104 100644
+--- a/csug/title.stex
++++ b/csug/title.stex
+@@ -27,7 +27,6 @@
+ 
+ \begingroup\large
+ \begin{flushright}
+-\includegraphics[width=1.25in]{canned/cisco-logo-large}\\[10pt]
+ Cisco Systems, Inc.\\
+ www.cisco.com
+ \end{flushright}
+diff --git a/examples/Makefile b/examples/Makefile
+index 5d0b987..42ea8fa 100644
+--- a/examples/Makefile
++++ b/examples/Makefile
+@@ -11,7 +11,7 @@
+ # * To print the examples, type "make print".
+ 
+ src = def.ss edit.ss fact.ss fatfib.ss fft.ss fib.ss freq.ss interpret.ss\
+- m4.ss macro.ss matrix.ss object.ss power.ss queue.ss rabbit.ss rsa.ss\
++ m4.ss macro.ss matrix.ss object.ss power.ss queue.ss rabbit.ss \
+  scons.ss setof.ss socket.ss unify.ss compat.ss ez-grammar-test.ss
+ obj = ${src:%.ss=%.so}
+ 
