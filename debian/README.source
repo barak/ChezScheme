@@ -11,8 +11,8 @@ dependencies. Build in this order:
 * Build and install nanopass-framework-scheme with
   DEB_BUILD_OPTIONS=nocheck DEB_BUILD_PROFILES=nocheck.
 
-* Build chezscheme with DEB_BUILD_OPTIONS="nodoc nocheck"
-  DEB_BUILD_PROFILES="nodoc nocheck" and install the built packages.
+* Build chezscheme with DEB_BUILD_OPTIONS=nodoc
+  DEB_BUILD_PROFILES=nodoc and install the built packages.
 
 * Build and install stex.
 
@@ -21,4 +21,9 @@ dependencies. Build in this order:
 Once stex and nanopass are in the archive then it is from that point
 possible to build as usual.
 
- -- Göran Weinholt <goran@weinholt.se>, Mon, 11 Dec 2017 23:27:37 +0100
+Upstream provides an extensive test suite that can be used after
+patching source code in c/ or s/. The tests take many hours to run and
+are overkill for regular builds. They are enabled with
+DEB_BUILD_OPTIONS="fullcheck".
+
+ -- Göran Weinholt <goran@weinholt.se>, Tue, 12 Dec 2017 22:06:20 +0100

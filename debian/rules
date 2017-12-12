@@ -36,9 +36,9 @@ override_dh_auto_configure:
 	(echo "\def\INSERTREVISIONMONTHSPACEYEAR{}"; cat csug/copyright.stex) > \
 	    build/csug/copyright.stex
 
-override_dh_auto_test-arch:
-ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-	make -C build test
+override_dh_auto_test:
+ifeq (fullcheck,$(filter fullcheck,$(DEB_BUILD_OPTIONS)))
+	dh_auto_test
 endif
 
 override_dh_auto_build:
