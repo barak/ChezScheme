@@ -55,11 +55,13 @@ override_dh_auto_install:
 	    build/scheme.1 > build/chezscheme$(CHEZ_VERSION).1
 ifneq (,$(filter chezscheme$(CHEZ_VERSION)-doc,$(DOPACKAGES)))
 	make -C build/release_notes Scheme=scheme STEXLIB=/usr/share/stex INSTALL=../installsh \
-	    installdir=$(shell pwd)/debian/tmp/usr/share/doc/chezscheme-doc/  \
+	    installdir=$(shell pwd)/debian/tmp/usr/share/doc/chezscheme-doc/ \
 	    install
 	make -C build/csug Scheme=scheme STEXLIB=/usr/share/stex INSTALL=../installsh \
-	    installdir=$(shell pwd)/debian/tmp/usr/share/doc/chezscheme-doc/html/  \
+	    installdir=$(shell pwd)/debian/tmp/usr/share/doc/chezscheme-doc/html/ \
 	    install
+	rm -f debian/tmp/usr/share/doc/chezscheme-doc/html/canned/*-orig.png
+	ln -sf ../csug.css debian/tmp/usr/share/doc/chezscheme-doc/html/canned/csug.css
 endif
 
 override_dh_link:
