@@ -2,12 +2,44 @@ From: =?utf-8?q?G=C3=B6ran_Weinholt?= <goran@weinholt.se>
 Date: Sun, 10 Dec 2017 19:16:01 +0100
 Subject: Dynamically link with the system's installed zlib
 
+This changes the C makefiles to use $(LD), to stop building zlib, and
+to not statically link -lz into the kernel.
 ---
- c/Mf-base  | 6 ------
- c/Mf-ta6le | 8 ++++----
- c/Mf-ti3le | 6 +++---
- 3 files changed, 7 insertions(+), 13 deletions(-)
+ c/Mf-arm32le | 8 ++++----
+ c/Mf-base    | 6 ------
+ c/Mf-ta6le   | 8 ++++----
+ c/Mf-ti3le   | 8 ++++----
+ 4 files changed, 12 insertions(+), 18 deletions(-)
 
+diff --git a/c/Mf-arm32le b/c/Mf-arm32le
+index c4564a5..d6f8abb 100644
+--- a/c/Mf-arm32le
++++ b/c/Mf-arm32le
+@@ -16,7 +16,7 @@
+ m = arm32le
+ Cpu = ARMV6
+ 
+-mdclib = -lm -ldl -lncurses -lrt
++mdclib = -lm -ldl -lncurses -lrt -lz
+ C = ${CC} ${CPPFLAGS} -Wpointer-arith -Wextra -Werror -Wno-implicit-fallthrough -O2 ${CFLAGS}
+ o = o
+ mdsrc = arm32le.c
+@@ -26,12 +26,12 @@ mdobj = arm32le.o
+ .SUFFIXES: .c .o
+ 
+ .c.o:
+-	$C -c -D${Cpu} -I${Include} -I../zlib $*.c
++	$C -c -D${Cpu} -I${Include} $*.c
+ 
+ include Mf-base
+ 
+-${Kernel}: ${kernelobj} ../zlib/libz.a
+-	ld -r -X -o ${Kernel} ${kernelobj} ../zlib/libz.a
++${Kernel}: ${kernelobj}
++	$(LD) -r -X -o ${Kernel} ${kernelobj}
+ 
+ ${Scheme}: ${Kernel} ${Main}
+ 	$C -rdynamic -o ${Scheme} ${Kernel} ${Main} ${mdclib} ${LDFLAGS}
 diff --git a/c/Mf-base b/c/Mf-base
 index cc23047..4c101a1 100644
 --- a/c/Mf-base
@@ -28,7 +60,7 @@ index cc23047..4c101a1 100644
  	rm -f *.$o ${mdclean}
  	rm -f Make.out
 diff --git a/c/Mf-ta6le b/c/Mf-ta6le
-index 206afc5..1fff8d9 100644
+index 206afc5..1141c12 100644
 --- a/c/Mf-ta6le
 +++ b/c/Mf-ta6le
 @@ -16,7 +16,7 @@
@@ -52,14 +84,23 @@ index 206afc5..1fff8d9 100644
 -${Kernel}: ${kernelobj} ../zlib/libz.a
 -	ld -melf_x86_64 -r -X -o ${Kernel} ${kernelobj} ../zlib/libz.a
 +${Kernel}: ${kernelobj}
-+	ld -melf_x86_64 -r -X -o ${Kernel} ${kernelobj}
++	$(LD) -melf_x86_64 -r -X -o ${Kernel} ${kernelobj}
  
  ${Scheme}: ${Kernel} ${Main}
  	$C -rdynamic -o ${Scheme} ${Kernel} ${Main} ${mdclib} ${LDFLAGS}
 diff --git a/c/Mf-ti3le b/c/Mf-ti3le
-index 3883602..48b4fad 100644
+index 3883602..c7308c5 100644
 --- a/c/Mf-ti3le
 +++ b/c/Mf-ti3le
+@@ -16,7 +16,7 @@
+ m = ti3le
+ Cpu = I386
+ 
+-mdclib = -lm -ldl -lncurses -lpthread -lrt
++mdclib = -lm -ldl -lncurses -lpthread -lrt -lz
+ C = ${CC} ${CPPFLAGS} -m32 -msse2 -Wpointer-arith -Wall -Wextra -Werror -Wno-implicit-fallthrough -O2 -D_REENTRANT -pthread ${CFLAGS}
+ o = o
+ mdsrc = i3le.c
 @@ -26,12 +26,12 @@ mdobj = i3le.o
  .SUFFIXES: .c .o
  
@@ -72,7 +113,7 @@ index 3883602..48b4fad 100644
 -${Kernel}: ${kernelobj} ../zlib/libz.a
 -	ld -melf_i386 -r -X -o ${Kernel} ${kernelobj} ../zlib/libz.a
 +${Kernel}: ${kernelobj}
-+	ld -melf_i386 -r -X -o ${Kernel} ${kernelobj} -L/usr/lib/${DEB_HOST_MULTIARCH}/ -lz
++	$(LD) -melf_i386 -r -X -o ${Kernel} ${kernelobj}
  
  ${Scheme}: ${Kernel} ${Main}
  	$C -rdynamic -o ${Scheme} ${Kernel} ${Main} ${mdclib} ${LDFLAGS}
