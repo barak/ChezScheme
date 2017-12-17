@@ -8,19 +8,25 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 DOPACKAGES = $(shell dh_listpackages)
 
-# Translate the host architecture to terms ./configure understands.
+# Translate the host architecture (the arch we're building for) to
+# terms the build system understands.
 ifeq ($(DEB_HOST_GNU_TYPE), x86_64-linux-gnu)
-    export MACHINE_TYPE = ta6le
+    export HOST_MACHINE_TYPE = ta6le
 else ifeq ($(DEB_HOST_GNU_TYPE), i386-linux-gnu)
-    export MACHINE_TYPE = ti3le
+    export HOST_MACHINE_TYPE = ti3le
+else ifeq ($(DEB_HOST_GNU_TYPE), arm-linux-gnueabihf)
+    export HOST_MACHINE_TYPE = arm32le
+else ifeq ($(DEB_HOST_GNU_TYPE), arm-linux-gnueabi)
+    export HOST_MACHINE_TYPE = arm32le
 else
     $(error Can not yet build for $(DEB_HOST_GNU_TYPE))
 endif
 ifeq ($(origin CC),default)
 CC := $(DEB_HOST_GNU_TYPE)-gcc
+LD := $(DEB_HOST_GNU_TYPE)-ld
 endif
 
-LIBDIR=usr/lib/csv$(CHEZ_VERSION)/$(MACHINE_TYPE)
+LIBDIR=usr/lib/csv$(CHEZ_VERSION)/$(HOST_MACHINE_TYPE)
 
 # Chez Scheme statically links with r6rs-nanopass-dev.
 NANOPASS_SRC = $(shell dpkg-query -W -f='$${source:Package} (= $${source:Version})\n' r6rs-nanopass-dev)
@@ -30,7 +36,14 @@ SUBSTVARS = -Vmisc:Built-Using="$(NANOPASS_SRC)"
 	dh $@
 
 override_dh_auto_configure:
-	CC=$(CC) ./configure --workarea=build -m=$(MACHINE_TYPE) --threads --installprefix=/usr --temproot=$(shell pwd)/debian/tmp
+ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
+	CC=$(CC) ./configure --workarea=build -m=$(HOST_MACHINE_TYPE) --threads --installprefix=/usr --temproot=$(shell pwd)/debian/tmp
+else
+	./configure --workarea=crossbuilder --threads --installprefix=/usr --temproot=$(shell pwd)/debian/tmp
+	make -C crossbuilder
+	./workarea $(HOST_MACHINE_TYPE)
+	mv $(HOST_MACHINE_TYPE) build
+endif
 	cp -a release_notes/ build/
 	cp -a csug/ build/
 	(echo "\def\INSERTREVISIONMONTHSPACEYEAR{}"; cat csug/copyright.stex) > \
@@ -42,14 +55,24 @@ ifeq (fullcheck,$(filter fullcheck,$(DEB_BUILD_OPTIONS)))
 endif
 
 override_dh_auto_build:
+ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
 	make -C build
+else
+	$(eval BUILD_MACHINE_TYPE = $(shell awk -F= '/^m=/ {print $$2}' crossbuilder/Mf-install))
+	make -C build/s -f Mf-cross m=$(BUILD_MACHINE_TYPE) xm=$(HOST_MACHINE_TYPE) base=$(CURDIR)/crossbuilder
+	make -C build/c CC=$(CC) LD=$(LD)
+endif
 ifneq (,$(filter chezscheme$(CHEZ_VERSION)-doc,$(DOPACKAGES)))
 	make -C build/release_notes Scheme=scheme STEXLIB=/usr/share/stex
 	make -C build/csug Scheme=scheme STEXLIB=/usr/share/stex
 endif
 
 override_dh_auto_install:
+ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
 	make install
+else
+	make -C build -f ../crossbuilder/Mf-install m=$(HOST_MACHINE_TYPE)
+endif
 	sed -e 's,^\\fI\(Chez Scheme\)\\fP,chezscheme$(CHEZ_VERSION) \- Chez Scheme,' \
 	    -e 's,^\\fI\(Petite Chez Scheme\)\\fP,petite$(CHEZ_VERSION) \- Petite Chez Scheme,' \
 	    build/scheme.1 > build/chezscheme$(CHEZ_VERSION).1

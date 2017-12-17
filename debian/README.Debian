@@ -28,6 +28,8 @@ This use case is covered by chezschemeX.Y-dev.
 
 Traditionally upstream has distributed four different builds from
 these combinations: with/without compiler, with/without threading. The
-Debian package comes with the compiler and with threading.
+Debian package comes with the compiler and with threading. The
+exception is armel/armhf where upstream does not have a threaded
+machine type for ARM.
 
- -- Göran Weinholt <goran@weinholt.se>, Sun, 10 Dec 2017 23:06:48 +0100
+ -- Göran Weinholt <goran@weinholt.se>, Sun, 17 Dec 2017 19:33:40 +0100

@@ -14,7 +14,7 @@ Vcs-Git: https://anonscm.debian.org/git/collab-maint/chezscheme.git
 Vcs-Browser: https://anonscm.debian.org/gitweb/?p=collab-maint/chezscheme.git
 
 Package: chezscheme9.5
-Architecture: i386 amd64
+Architecture: i386 amd64 armel armhf
 Multi-Arch: foreign
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Built-Using: ${misc:Built-Using}
@@ -26,7 +26,7 @@ Description: Reliable, high performance Scheme compiler (version 9.5)
 
 Package: chezscheme9.5-dev
 Section: devel
-Architecture: i386 amd64
+Architecture: i386 amd64 armel armhf
 Multi-Arch: same
 Depends: chezscheme9.5 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
 Description: Reliable, high performance Scheme compiler (C development files)

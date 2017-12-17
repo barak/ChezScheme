@@ -26,4 +26,14 @@ patching source code in c/ or s/. The tests take many hours to run and
 are overkill for regular builds. They are enabled with
 DEB_BUILD_OPTIONS="fullcheck".
 
- -- Göran Weinholt <goran@weinholt.se>, Tue, 12 Dec 2017 22:06:20 +0100
+Chez Scheme can be crosscompiled to 32-bit ARM (armhf can be
+substituted with armel):
+
+  dpkg --add-architecture armhf
+  apt update
+  apt-get install crossbuild-essential-armhf
+  apt-get build-dep -aarmhf chezscheme
+  # Or: apt-get install zlib1g-dev:armhf libx11-dev:armhf libncurses5-dev:armhf
+  CONFIG_SITE=/etc/dpkg-cross/cross-config.armhf dpkg-buildpackage -aarmhf -B
+
+ -- Göran Weinholt <goran@weinholt.se>, Sun, 17 Dec 2017 19:30:18 +0100

@@ -2,5 +2,5 @@
 usr/bin/scheme => usr/bin/chezscheme${CHEZ_VERSION}
 usr/bin/petite => usr/bin/petite${CHEZ_VERSION}
 usr/bin/scheme-script => usr/bin/scheme-script${CHEZ_VERSION}
-usr/lib/csv${CHEZ_VERSION}/${MACHINE_TYPE}/petite.boot => usr/lib/csv${CHEZ_VERSION}/${MACHINE_TYPE}/petite.boot
-usr/lib/csv${CHEZ_VERSION}/${MACHINE_TYPE}/scheme.boot => usr/lib/csv${CHEZ_VERSION}/${MACHINE_TYPE}/scheme.boot
+usr/lib/csv${CHEZ_VERSION}/${HOST_MACHINE_TYPE}/petite.boot => usr/lib/csv${CHEZ_VERSION}/${HOST_MACHINE_TYPE}/petite.boot
+usr/lib/csv${CHEZ_VERSION}/${HOST_MACHINE_TYPE}/scheme.boot => usr/lib/csv${CHEZ_VERSION}/${HOST_MACHINE_TYPE}/scheme.boot
