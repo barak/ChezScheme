@@ -1,9 +1,13 @@
 chezscheme (9.5+dfsg-2) unstable; urgency=low
 
+  [ Göran Weinholt ]
   * Add support for cross-building from i386/amd64 to armel/armhf.
   * Fix zlib linking in i386 builds.
 
- -- Göran Weinholt <goran@weinholt.se>  Sun, 17 Dec 2017 17:38:13 +0100
+  [ Barak A. Pearlmutter ]
+  * Tell debian/rules that arch i386 is DEB_HOST_GNU_TYPE i686-linux-gnu
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Mon, 25 Dec 2017 17:25:43 +0000
 
 chezscheme (9.5+dfsg-1) unstable; urgency=low
 
