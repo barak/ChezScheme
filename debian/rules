@@ -14,6 +14,8 @@ ifeq ($(DEB_HOST_GNU_TYPE), x86_64-linux-gnu)
     export HOST_MACHINE_TYPE = ta6le
 else ifeq ($(DEB_HOST_GNU_TYPE), i386-linux-gnu)
     export HOST_MACHINE_TYPE = ti3le
+else ifeq ($(DEB_HOST_GNU_TYPE), i686-linux-gnu)
+    export HOST_MACHINE_TYPE = ti3le
 else ifeq ($(DEB_HOST_GNU_TYPE), arm-linux-gnueabihf)
     export HOST_MACHINE_TYPE = arm32le
 else ifeq ($(DEB_HOST_GNU_TYPE), arm-linux-gnueabi)
