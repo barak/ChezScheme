@@ -1,0 +1,9 @@
+/*.debhelper
+/*.debhelper.log
+/*.substvars
+/.debhelper/
+/chezscheme9.5-dev/
+/chezscheme9.5/
+/debhelper-build-stamp
+/files
+/tmp/
