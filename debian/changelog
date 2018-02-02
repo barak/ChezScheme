@@ -1,3 +1,15 @@
+chezscheme (9.5+dfsg-2) unstable; urgency=medium
+
+  [ Barak A. Pearlmutter ]
+  * git ignore build DEBris
+
+  [ Göran Weinholt ]
+  * Fix from upstream for FTBFS with glibc 2.26 (Closes: #889105).
+    Thanks for the report, Jeremy Bicha.
+  * Fix duplicated path component in -dev package
+
+ -- Göran Weinholt <goran@weinholt.se>  Fri, 02 Feb 2018 14:05:10 +0100
+
 chezscheme (9.5+dfsg-1) unstable; urgency=medium
 
   [ Göran Weinholt ]
