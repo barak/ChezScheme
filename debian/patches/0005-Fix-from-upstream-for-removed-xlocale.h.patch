@@ -1,0 +1,27 @@
+From: =?utf-8?q?G=C3=B6ran_Weinholt?= <goran@weinholt.se>
+Date: Fri, 2 Feb 2018 12:38:24 +0100
+Subject: Fix from upstream for removed xlocale.h
+
+Cherry-pick b04e9123a4 from upstream:
+
+- ifdef'd out include of xlocale.h for glibc, since the glibc
+  locale.h includes xlocale.h or, in glibc 2.26, its replacement.
+    expeditor.c
+---
+ c/expeditor.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/c/expeditor.c b/c/expeditor.c
+index a103fa2..84c3897 100644
+--- a/c/expeditor.c
++++ b/c/expeditor.c
+@@ -546,7 +546,9 @@ static void s_ee_write_char(wchar_t c) {
+ #include <sys/ioctl.h>
+ #include <wchar.h>
+ #include <locale.h>
++#ifndef __GLIBC__
+ #include <xlocale.h>
++#endif
+ 
+ #if defined(TIOCGWINSZ) && defined(SIGWINCH) && defined(EINTR)
+ #define HANDLE_SIGWINCH
