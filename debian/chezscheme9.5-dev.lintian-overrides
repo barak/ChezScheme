@@ -1,2 +1,3 @@
 # Upstream has their own way to specify arch triplets.
 chezscheme9.5-dev binary: arch-dependent-file-not-in-arch-specific-directory usr/lib/csv*/*/kernel.o
+chezscheme9.5-dev binary: arch-dependent-file-not-in-arch-specific-directory usr/lib/csv*/*/main.o
