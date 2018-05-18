@@ -3,3 +3,4 @@
 0004-Remove-the-need-for-files-removed-in-dfsg-cleaning.patch
 0002-configure-Do-not-download-dependencies.patch
 0005-Fix-from-upstream-for-removed-xlocale.h.patch
+0006-Double-FMTBUFSIZE-to-fix-ftbfs-with-gcc-8.patch

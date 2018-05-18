@@ -1,0 +1,21 @@
+From: =?utf-8?q?G=C3=B6ran_Weinholt?= <goran@weinholt.se>
+Date: Fri, 18 May 2018 22:07:15 +0200
+Subject: Double FMTBUFSIZE to fix ftbfs with gcc-8
+
+---
+ c/prim5.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/c/prim5.c b/c/prim5.c
+index 5bee635..69c6bfd 100644
+--- a/c/prim5.c
++++ b/c/prim5.c
+@@ -219,7 +219,7 @@ static ptr s_decode_float(x) ptr x; {
+     return S_decode_float(FLODAT(x));
+ }
+ 
+-#define FMTBUFSIZE 60
++#define FMTBUFSIZE 120
+ #define CHUNKADDRLT(x, y) (((chunkinfo *)(Scar(x)))->addr < ((chunkinfo *)(Scar(y)))->addr)
+ mkmergesort(sort_chunks, merge_chunks, ptr, Snil, CHUNKADDRLT, INITCDR)
+ 
