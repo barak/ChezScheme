@@ -7,7 +7,9 @@ Build-Depends: debhelper (>= 10), dh-exec
 Build-Depends-Arch: zlib1g-dev | libz-dev,
        libncurses5-dev | libncurses-dev | ncurses-dev,
        libx11-dev,
-       r6rs-nanopass-dev
+       r6rs-nanopass-dev,
+       chezscheme9.5 [armel armhf] <!cross>,
+       chezscheme9.5-dev [armel armhf] <!cross>
 Build-Depends-Indep: stex <!nodoc>
 Standards-Version: 4.1.4
 Homepage: https://cisco.github.io/ChezScheme/
