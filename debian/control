@@ -2,6 +2,7 @@ Source: chezscheme
 Section: lisp
 Priority: optional
 Maintainer: Göran Weinholt <goran@weinholt.se>
+Uploaders: Barak A. Pearlmutter <bap@debian.org>
 Build-Depends: debhelper (>= 10), dh-exec
 Build-Depends-Arch: zlib1g-dev | libz-dev,
        libncurses5-dev | libncurses-dev | ncurses-dev,
