@@ -1,7 +1,7 @@
 Source: chezscheme
 Section: lisp
 Priority: optional
-Maintainer: Göran Weinholt <goran@weinholt.se>
+Maintainer: Göran Weinholt <weinholt@debian.org>
 Uploaders: Barak A. Pearlmutter <bap@debian.org>
 Build-Depends: debhelper (>= 10), dh-exec
 Build-Depends-Arch: zlib1g-dev | libz-dev,
