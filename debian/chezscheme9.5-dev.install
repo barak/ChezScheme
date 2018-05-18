@@ -1,4 +1,5 @@
 #!/usr/bin/dh-exec
+build/boot/${HOST_MACHINE_TYPE}/equates.h => usr/lib/csv${CHEZ_VERSION}/${HOST_MACHINE_TYPE}/equates.h
 build/boot/${HOST_MACHINE_TYPE}/kernel.o => usr/lib/csv${CHEZ_VERSION}/${HOST_MACHINE_TYPE}/kernel.o
 build/boot/${HOST_MACHINE_TYPE}/main.o => usr/lib/csv${CHEZ_VERSION}/${HOST_MACHINE_TYPE}/main.o
 usr/lib/csv${CHEZ_VERSION}/${HOST_MACHINE_TYPE}/scheme.h => usr/lib/csv${CHEZ_VERSION}/${HOST_MACHINE_TYPE}/scheme.h
