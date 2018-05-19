@@ -21,7 +21,7 @@ else ifeq ($(DEB_HOST_GNU_TYPE), arm-linux-gnueabihf)
 else ifeq ($(DEB_HOST_GNU_TYPE), arm-linux-gnueabi)
     export HOST_MACHINE_TYPE = arm32le
 else
-    $(error Can not yet build for $(DEB_HOST_GNU_TYPE))
+    $(error Cannot yet build for $(DEB_HOST_GNU_TYPE))
 endif
 ifeq ($(origin CC),default)
 CC := $(DEB_HOST_GNU_TYPE)-gcc
@@ -39,8 +39,9 @@ SUBSTVARS = -Vmisc:Built-Using="$(NANOPASS_SRC)"
 
 override_dh_auto_configure:
 ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
-	if [ ! -x boot/$(HOST_MACHINE_TYPE) ]; then \
-          ln -s /usr/lib/csv$(CHEZ_VERSION)/$(HOST_MACHINE_TYPE) boot/$(HOST_MACHINE_TYPE); \
+	if [ ! -d boot/$(HOST_MACHINE_TYPE) ]; then \
+          cp -r /usr/lib/csv$(CHEZ_VERSION)/$(HOST_MACHINE_TYPE) boot/$(HOST_MACHINE_TYPE); \
+          touch boot/$(HOST_MACHINE_TYPE)/.debian-cleanup; \
 	fi
 	CC=$(CC) ./configure --workarea=build -m=$(HOST_MACHINE_TYPE) --installprefix=/usr --temproot=$(shell pwd)/debian/tmp
 else
@@ -112,8 +113,8 @@ override_dh_link:
 override_dh_auto_clean:
 	rm -f Makefile
 	dh_auto_clean
-	if [ -L boot/$(HOST_MACHINE_TYPE) ]; then \
-	  rm boot/$(HOST_MACHINE_TYPE); \
+	if [ -f boot/$(HOST_MACHINE_TYPE)/.debian-cleanup ]; then \
+	  rm -rf boot/$(HOST_MACHINE_TYPE); \
 	fi
 
 override_dh_gencontrol:
