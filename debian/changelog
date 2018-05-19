@@ -1,3 +1,10 @@
+chezscheme (9.5+dfsg-4) unstable; urgency=medium
+
+  * Fix for insufficiently tested use of boot files in /usr/lib
+    (closes: #899062)
+
+ -- Göran Weinholt <weinholt@debian.org>  Sat, 19 May 2018 21:38:45 +0200
+
 chezscheme (9.5+dfsg-3) unstable; urgency=medium
 
   [ Barak A. Pearlmutter ]
