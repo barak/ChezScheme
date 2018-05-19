@@ -1,3 +1,28 @@
+chezscheme (9.5+dfsg-3) unstable; urgency=medium
+
+  [ Barak A. Pearlmutter ]
+  * update URLs and policy
+
+  [ Göran Weinholt ]
+  * Bump to Standards-Version 4.1.4 (no changes)
+  * Add Barak A. Pearlmutter to Uploaders. Thanks for sponsoring!
+  * Update Maintainer to my @debian.org address
+  * -dev: install files in the same location as upstream.
+  * -dev: install equates.h and main.o
+  * Override lintian warnings for {main,kernel}.o, which are placed in
+    upstream's system of arch-specific directories.
+  * Double FMTBUFSIZE to fix ftbfs with gcc-8 (closes: #897720).
+    Thanks for the report, Matthias Klose.
+  * Add chezscheme9.5{,-dev} as a build-dep for armhf when not cross
+    compiling.
+  * Use boot files from /usr/lib if they are missing in
+    boot/<machine-type>, fixing building on buildds (closes: #899062).
+    Thanks for the report, Adam Borowski.
+  * Drop the armel architecture because it crashes when floating point is
+    used (it never worked).
+
+ -- Göran Weinholt <weinholt@debian.org>  Sat, 19 May 2018 10:55:27 +0200
+
 chezscheme (9.5+dfsg-2) unstable; urgency=medium
 
   [ Barak A. Pearlmutter ]
