@@ -50,6 +50,7 @@ else
 	./workarea $(HOST_MACHINE_TYPE)
 	mv $(HOST_MACHINE_TYPE) build
 endif
+	(cd build/s; ln -s ../../s/primdata.ss primdata.ss)
 	cp -a release_notes/ build/
 	cp -a csug/ build/
 	(echo "\def\INSERTREVISIONMONTHSPACEYEAR{}"; cat csug/copyright.stex) > \
@@ -60,7 +61,7 @@ ifeq (fullcheck,$(filter fullcheck,$(DEB_BUILD_OPTIONS)))
 	dh_auto_test
 endif
 
-override_dh_auto_build:
+override_dh_auto_build-arch:
 ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
 	make -C build
 else
@@ -68,12 +69,14 @@ else
 	make -C build/s -f Mf-cross m=$(BUILD_MACHINE_TYPE) xm=$(HOST_MACHINE_TYPE) base=$(CURDIR)/crossbuilder
 	make -C build/c CC=$(CC) LD=$(LD)
 endif
+
+override_dh_auto_build-indep:
 ifneq (,$(filter chezscheme$(CHEZ_VERSION)-doc,$(DOPACKAGES)))
 	make -C build/release_notes Scheme=scheme STEXLIB=/usr/share/stex
 	make -C build/csug Scheme=scheme STEXLIB=/usr/share/stex
 endif
 
-override_dh_auto_install:
+override_dh_auto_install-arch:
 ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
 	make install
 else
@@ -82,6 +85,8 @@ endif
 	sed -e 's,^\\fI\(Chez Scheme\)\\fP,chezscheme$(CHEZ_VERSION) \- Chez Scheme,' \
 	    -e 's,^\\fI\(Petite Chez Scheme\)\\fP,petite$(CHEZ_VERSION) \- Petite Chez Scheme,' \
 	    build/scheme.1 > build/chezscheme$(CHEZ_VERSION).1
+
+override_dh_auto_install-indep:
 ifneq (,$(filter chezscheme$(CHEZ_VERSION)-doc,$(DOPACKAGES)))
 	make -C build/release_notes Scheme=scheme STEXLIB=/usr/share/stex INSTALL=../installsh \
 	    installdir=$(shell pwd)/debian/tmp/usr/share/doc/chezscheme-doc/ \
@@ -126,5 +131,5 @@ override_dh_installdocs:
 override_dh_installchangelogs:
 	dh_installchangelogs LOG
 
-override_dh_installman:
+override_dh_installman-arch:
 	dh_installman build/chezscheme$(CHEZ_VERSION).1
