@@ -1,3 +1,10 @@
+chezscheme (9.5+dfsg-5) unstable; urgency=medium
+
+  * Split -arch/-indep install and build targets to fix FTBFS.
+    Thanks to Santiago Vila for the report (Closes: #901104)
+
+ -- Göran Weinholt <weinholt@debian.org>  Sat, 09 Jun 2018 11:23:07 +0200
+
 chezscheme (9.5+dfsg-4) unstable; urgency=medium
 
   * Fix for insufficiently tested use of boot files in /usr/lib
