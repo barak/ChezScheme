@@ -30,10 +30,6 @@ endif
 
 LIBDIR=usr/lib/csv$(CHEZ_VERSION)/$(HOST_MACHINE_TYPE)
 
-# Chez Scheme statically links with r6rs-nanopass-dev.
-NANOPASS_SRC = $(shell dpkg-query -W -f='$${source:Package} (= $${source:Version})\n' r6rs-nanopass-dev)
-SUBSTVARS = -Vmisc:Built-Using="$(NANOPASS_SRC)"
-
 %:
 	dh $@
 
@@ -121,9 +117,6 @@ override_dh_auto_clean:
 	if [ -f boot/$(HOST_MACHINE_TYPE)/.debian-cleanup ]; then \
 	  rm -rf boot/$(HOST_MACHINE_TYPE); \
 	fi
-
-override_dh_gencontrol:
-	dh_gencontrol -- $(SUBSTVARS)
 
 override_dh_installdocs:
 	dh_installdocs -A NOTICE

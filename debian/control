@@ -20,7 +20,6 @@ Package: chezscheme9.5
 Architecture: i386 amd64 armhf
 Multi-Arch: foreign
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Built-Using: ${misc:Built-Using}
 Description: Reliable, high performance Scheme compiler (version 9.5)
  Chez Scheme is both a programming language and an implementation of
  that language, with supporting tools and documentation.
