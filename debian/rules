@@ -28,6 +28,14 @@ CC := $(DEB_HOST_GNU_TYPE)-gcc
 LD := $(DEB_HOST_GNU_TYPE)-ld
 endif
 
+# Avoid using /usr/bin/scheme to run stex
+ifeq ($(wildcard /usr/bin/chezscheme),)
+    INSTALLED_CHEZ=/usr/bin/chezscheme9.5
+else
+    # Available since 9.5+dfsg-6
+    INSTALLED_CHEZ=/usr/bin/chezscheme
+endif
+
 LIBDIR=usr/lib/csv$(CHEZ_VERSION)/$(HOST_MACHINE_TYPE)
 
 %:
@@ -68,8 +76,8 @@ endif
 
 override_dh_auto_build-indep:
 ifneq (,$(filter chezscheme$(CHEZ_VERSION)-doc,$(DOPACKAGES)))
-	make -C build/release_notes Scheme=scheme STEXLIB=/usr/share/stex
-	make -C build/csug Scheme=scheme STEXLIB=/usr/share/stex
+	make -C build/release_notes Scheme=$(INSTALLED_CHEZ) STEXLIB=/usr/share/stex
+	make -C build/csug Scheme=$(INSTALLED_CHEZ) STEXLIB=/usr/share/stex
 endif
 
 override_dh_auto_install-arch:
@@ -84,10 +92,10 @@ endif
 
 override_dh_auto_install-indep:
 ifneq (,$(filter chezscheme$(CHEZ_VERSION)-doc,$(DOPACKAGES)))
-	make -C build/release_notes Scheme=scheme STEXLIB=/usr/share/stex INSTALL=../installsh \
+	make -C build/release_notes Scheme=$(INSTALLED_CHEZ) STEXLIB=/usr/share/stex INSTALL=../installsh \
 	    installdir=$(shell pwd)/debian/tmp/usr/share/doc/chezscheme-doc/ \
 	    install
-	make -C build/csug Scheme=scheme STEXLIB=/usr/share/stex INSTALL=../installsh \
+	make -C build/csug Scheme=$(INSTALLED_CHEZ) STEXLIB=/usr/share/stex INSTALL=../installsh \
 	    installdir=$(shell pwd)/debian/tmp/usr/share/doc/chezscheme-doc/html/ \
 	    install
 	rm -f debian/tmp/usr/share/doc/chezscheme-doc/html/canned/*-orig.png
@@ -97,6 +105,7 @@ endif
 override_dh_link:
 	dh_link $(LIBDIR)/petite.boot $(LIBDIR)/petite$(CHEZ_VERSION).boot \
 	        $(LIBDIR)/scheme.boot $(LIBDIR)/chezscheme$(CHEZ_VERSION).boot \
+	        $(LIBDIR)/scheme.boot $(LIBDIR)/chezscheme.boot \
 	        $(LIBDIR)/scheme.boot $(LIBDIR)/scheme-script.boot \
 	        $(LIBDIR)/scheme.boot $(LIBDIR)/scheme-script$(CHEZ_VERSION).boot \
 	        /usr/share/man/man1/chezscheme$(CHEZ_VERSION).1.gz \
@@ -104,12 +113,12 @@ override_dh_link:
 	        /usr/share/man/man1/chezscheme$(CHEZ_VERSION).1.gz \
 	        /usr/share/man/man1/scheme-script$(CHEZ_VERSION).1.gz
 	dh_link -pchezscheme \
-	       /usr/bin/chezscheme$(CHEZ_VERSION) usr/bin/scheme \
+               /usr/bin/chezscheme$(CHEZ_VERSION) usr/bin/chezscheme \
 	       /usr/bin/chezscheme$(CHEZ_VERSION) usr/bin/petite \
 	       /usr/share/man/man1/chezscheme$(CHEZ_VERSION).1.gz \
 	       /usr/share/man/man1/petite.1.gz \
 	       /usr/share/man/man1/chezscheme$(CHEZ_VERSION).1.gz \
-	       /usr/share/man/man1/scheme.1.gz
+               /usr/share/man/man1/chezscheme.1.gz
 
 override_dh_auto_clean:
 	rm -f Makefile

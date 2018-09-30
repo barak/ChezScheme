@@ -3,10 +3,21 @@
 set -e
 
 if [ "$1" = "configure" ]; then
-    update-alternatives \
-        --install /usr/bin/scheme-script scheme-script /usr/bin/chezscheme9.5 10 \
-        --slave /usr/share/man/man1/scheme-script.1.gz scheme-script.1.gz \
-                /usr/share/man/man1/scheme-script9.5.1.gz
+    CHEZ_VERSION=9.5
+    update-alternatives --install /usr/bin/scheme \
+                                  scheme \
+                                  /usr/bin/chezscheme${CHEZ_VERSION} \
+                                  20 \
+                        --slave /usr/share/man/man1/scheme.1.gz \
+                                scheme.1.gz \
+                                /usr/share/man/man1/chezscheme${CHEZ_VERSION}.1.gz
+    update-alternatives --install /usr/bin/scheme-script \
+                                  scheme-script \
+                                  /usr/bin/chezscheme${CHEZ_VERSION} \
+                                  20 \
+                        --slave /usr/share/man/man1/scheme-script.1.gz \
+                                scheme-script.1.gz \
+                                /usr/share/man/man1/scheme-script${CHEZ_VERSION}.1.gz
 fi
 
 #DEBHELPER#
