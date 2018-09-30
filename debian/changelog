@@ -1,3 +1,10 @@
+chezscheme (9.5+dfsg-6) unstable; urgency=medium
+
+  * Remove Built-Using (not needed since policy 4.1.3)
+  * Manage the /usr/bin/scheme symlink as an alternative (Closes: #909937)
+
+ -- Göran Weinholt <weinholt@debian.org>  Sun, 30 Sep 2018 13:16:41 +0200
+
 chezscheme (9.5+dfsg-5) unstable; urgency=medium
 
   * Split -arch/-indep install and build targets to fix FTBFS.
